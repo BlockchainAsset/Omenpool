@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omen Pool Token APR</title>
+    <meta name="description" content="Find the PNK Reward you can get from providing Liquidity Pool to Omen">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container text-center">
+        <button id="theme" onclick="changeTheme()">&#9790;</button>
+        <div class="market-details">
+            <h1>Omen Pool Liquidity</h1>
+            <small class="form-text text-muted">The below represents an estimate of the entire Omen Pool Token Liquidity in equivalent USD</small>
+            <div id="omen-market-details">
+                <h1>$</h1>
+                <h1 id="omen-market-usd">0</h1>
+            </div>
+        </div>
+        <div id="status" class="text-muted">
+            Finding all the Fixed Product Market Makers...
+        </div>
+        <div>
+            <div class="apr-details">
+                <h3>Calculate APR</h3>
+                <div class="apr-details-form">
+                    <label for="amount">Amount in USD: </label><br>
+                    <input class="form-control" type="number" name="amount" id="calculate-amount" placeholder="Enter the amount" oninput="calculate()">
+                </div>
+            </div>
+            <div id="calculate-apr">
+                The monthly reward is <div id="pnk">?</div> <b>PNK</b><br>
+                which is equvalent to <b>$</b><div id="dollar">??</div><br>
+                i.e. An APR of <div id="apr">???</div> %
+            </div>
+            <hr>
+            <div id="market-list"></div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<script src="js/check.js"></script>
+<script src="js/calculate.js"></script>
+<script src="js/theme.js"></script>
+</body>
+</html>
