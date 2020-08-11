@@ -1,6 +1,6 @@
 // Variables
 let FPMMs;
-let FPMMGQLQuery = "{ fixedProductMarketMakers(first: 1000) { id creator collateralToken liquidityParameter scaledLiquidityParameter title arbitrator answerFinalizedTimestamp } }";
+let FPMMGQLQuery = "{ fixedProductMarketMakers(first: 1000) { id creator collateralToken liquidityParameter scaledLiquidityParameter liquidityMeasure scaledLiquidityMeasure title arbitrator answerFinalizedTimestamp } }";
 let FPMMGQLData = {
 	"query": FPMMGQLQuery,
 	"variables": {}
@@ -135,10 +135,10 @@ fetch(omenURL, {
 	FPMMs.forEach(FPMM => {
 		if(FPMM.arbitrator == "0xd47f72a2d1d0e91b0ec5e5f5d02b2dc26d00a14d"
 		&& FPMM.answerFinalizedTimestamp == null
-		&& FPMM.scaledLiquidityParameter != 0
+		&& FPMM.scaledLiquidityMeasure != 0
 		&& FPMM.creator != "0xacbc967d956f491cadb6288878de103b4a0eb38c"
 		&& FPMM.creator != "0x32981c1eeef4f5af3470069836bf95a0f8ac0508"){
-			individualTotalPoolTokeninUSDValue = FPMM.scaledLiquidityParameter * tokenToETHValue[FPMM.collateralToken] * ETHPrice;
+			individualTotalPoolTokeninUSDValue = FPMM.scaledLiquidityMeasure * tokenToETHValue[FPMM.collateralToken] * ETHPrice;
 			totalPoolLiquidity += individualTotalPoolTokeninUSDValue;
 		}
 		totalPoolLiquidity = Math.ceil(totalPoolLiquidity);
@@ -147,15 +147,15 @@ fetch(omenURL, {
 })
 .then(function() {
 	document.getElementById('status').innerHTML = "Creating the table list...";
-	sortedFPMM = FPMMs.sort((a, b) => (a.scaledLiquidityParameter * tokenToETHValue[a.collateralToken] < b.scaledLiquidityParameter * tokenToETHValue[b.collateralToken]) ? 1 : -1);
+	sortedFPMM = FPMMs.sort((a, b) => (a.scaledLiquidityMeasure * tokenToETHValue[a.collateralToken] < b.scaledLiquidityMeasure * tokenToETHValue[b.collateralToken]) ? 1 : -1);
 	// This makes the table entries
 	sortedFPMM.forEach(FPMM => {
 		if(FPMM.arbitrator == "0xd47f72a2d1d0e91b0ec5e5f5d02b2dc26d00a14d"
 		&& FPMM.answerFinalizedTimestamp == null
-		&& FPMM.scaledLiquidityParameter != 0
+		&& FPMM.scaledLiquidityMeasure != 0
 		&& FPMM.creator != "0xacbc967d956f491cadb6288878de103b4a0eb38c"
 		&& FPMM.creator != "0x32981c1eeef4f5af3470069836bf95a0f8ac0508"){
-			individualTotalPoolTokeninUSDValue = Math.ceil(FPMM.scaledLiquidityParameter * tokenToETHValue[FPMM.collateralToken] * ETHPrice);
+			individualTotalPoolTokeninUSDValue = Math.ceil(FPMM.scaledLiquidityMeasure * tokenToETHValue[FPMM.collateralToken] * ETHPrice);
 			let pnkAmount = Math.ceil(monthlyPNKReward * individualTotalPoolTokeninUSDValue / totalPoolLiquidity);
 			let PNKUSDAmount = Math.ceil(monthlyPNKReward * tokenToETHValue[pnkContractAddress] * ETHPrice * individualTotalPoolTokeninUSDValue / totalPoolLiquidity);
 

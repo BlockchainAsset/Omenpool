@@ -10,7 +10,7 @@ function changeTheme(){
     }
     else{
         document.getElementById('theme').innerHTML = '&#9790;';
-        document.body.style.background = '#f1f1f1';
+        document.body.style.background = '#cde5f7';
         document.body.style.color = '#111';
         document.getElementById('theme').style.color = '#111';
         document.getElementById('theme').style.paddingTop = '3px';
