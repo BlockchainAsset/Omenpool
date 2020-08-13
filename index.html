@@ -9,20 +9,20 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container text-center">
+    <div class="container text-center" id="theme-bg">
         <button id="theme" onclick="changeTheme()">&#9790;</button>
         <div class="header-image">
             <img src="img/PNKFarmingOnOmenHeader.png" alt="PNK Farming On Omen" class="rounded img-fluid">
         </div>
         <div class="market-details">
             <h1>Omen Pool Liquidity</h1>
-            <small class="form-text text-muted">The below represents an estimate of the entire Omen Pool Token Liquidity in equivalent USD</small>
+            <small class="form-text">The below represents an estimate of the entire Omen Pool Token Liquidity in equivalent USD</small>
             <div id="omen-market-details">
                 <h1>$</h1>
                 <h1 id="omen-market-usd">0</h1>
             </div>
         </div>
-        <div id="status" class="text-muted">
+        <div id="status">
             Finding all the Fixed Product Market Makers...
         </div>
         <div>
@@ -35,12 +35,13 @@
             </div>
             <div id="calculate-apr">
                 The monthly reward is <div id="pnk">?</div> <b>PNK</b><br>
-                which is equvalent to <b>$</b><div id="dollar">??</div><br>
+                which is equivalent to <b>$</b><div id="dollar">??</div><br>
                 i.e. An APR of <div id="apr">???</div> %<br>
             </div>
             <div class="reward-rules">
                 <p>For more info on reward, <a href="https://blog.kleros.io/make-pnk-with-omen-conditional-markets-a-guide/" target="_blank">read this post</a>.</p>
-                <small class="text-muted">Note that rewards are given to market creators only, to farm PNK you must be creative and create a new market.</small>
+                <small>Note that rewards are given to market creators only, to farm PNK you must be creative and create a new market.</small><br>
+                <small>Creating markets with unequal probability will result in smaller liquidity due to part of the token not being put into the curve. Please consider that while creating markets.</small>
             </div>
             <hr>
             <div id="market-list"></div>

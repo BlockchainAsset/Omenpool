@@ -32,7 +32,7 @@ let marketList = '';
 function addFPMMList(Title, FPMM, PNKAmount, PNKUSDAmount, USDAmount){
 	let head = 
 	'<table class="table table-striped" id="market-table">'+
-	'<thead class="thead-dark" id="market-table-head"><tr>'+
+	'<thead id="market-table-head" class="thead-light" id="market-table-head"><tr>'+
 	'<th scope="col">Title</th>'+
 	'<th scope="col">Pool Liquidity</th>'+
 	'<th scope="col">Monthly PNK</th>'+
