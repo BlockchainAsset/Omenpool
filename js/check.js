@@ -29,14 +29,12 @@ let sortedFPMM;
 let marketList = '';
 
 // Functions
-function addFPMMList(Title, FPMM, PNKAmount, PNKUSDAmount, USDAmount){
+function addFPMMList(Title, FPMM, USDAmount){
 	let head = 
 	'<table class="table table-striped" id="market-table">'+
 	'<thead id="market-table-head" class="thead-light" id="market-table-head"><tr>'+
 	'<th scope="col">Title</th>'+
 	'<th scope="col">Pool Liquidity</th>'+
-	'<th scope="col">Monthly PNK</th>'+
-	'<th scope="col">Monthly PNK ($)</th>'+
 	'</tr></thead>'+
 	'<tbody>';
 	let bottom = '</tbody></table>';
@@ -44,8 +42,6 @@ function addFPMMList(Title, FPMM, PNKAmount, PNKUSDAmount, USDAmount){
 	'<tr>'+
 	'<th scope="row"><a href="https://omen.eth.link/#/'+FPMM+'" target="_blank">'+Title+'</a></th>'+
 	'<td>$'+USDAmount+'</td>'+
-	'<td class="PNKAmount">'+PNKAmount+'</td>'+
-	'<td class="PNKUSDAmount">$'+PNKUSDAmount+'</td>'+
 	'</tr>';
 
 	document.getElementById('market-list').innerHTML = head + marketList + bottom;
@@ -131,24 +127,8 @@ fetch(omenURL, {
 })
 .then(function() {
     document.getElementById('status').innerHTML = "Finding the pool liquidity of all the markets...";
-	// Finally this calculates the entire amount in USD from Pool Markets.
-	FPMMs.forEach(FPMM => {
-		if(FPMM.arbitrator == "0xd47f72a2d1d0e91b0ec5e5f5d02b2dc26d00a14d"
-		&& FPMM.answerFinalizedTimestamp == null
-		&& FPMM.scaledLiquidityMeasure != 0
-		&& FPMM.creator != "0xacbc967d956f491cadb6288878de103b4a0eb38c"
-		&& FPMM.creator != "0x32981c1eeef4f5af3470069836bf95a0f8ac0508"){
-			individualTotalPoolTokeninUSDValue = FPMM.scaledLiquidityMeasure * tokenToETHValue[FPMM.collateralToken] * ETHPrice;
-			totalPoolLiquidity += individualTotalPoolTokeninUSDValue;
-		}
-		totalPoolLiquidity = Math.ceil(totalPoolLiquidity);
-		document.getElementById("omen-market-usd").innerHTML = totalPoolLiquidity;
-	});
-})
-.then(function() {
-	document.getElementById('status').innerHTML = "Creating the table list...";
 	sortedFPMM = FPMMs.sort((a, b) => (a.scaledLiquidityMeasure * tokenToETHValue[a.collateralToken] < b.scaledLiquidityMeasure * tokenToETHValue[b.collateralToken]) ? 1 : -1);
-	// This makes the table entries
+	// Finally this calculates the entire amount in USD from Pool Markets.
 	sortedFPMM.forEach(FPMM => {
 		if(FPMM.arbitrator == "0xd47f72a2d1d0e91b0ec5e5f5d02b2dc26d00a14d"
 		&& FPMM.answerFinalizedTimestamp == null
@@ -156,18 +136,16 @@ fetch(omenURL, {
 		&& FPMM.creator != "0xacbc967d956f491cadb6288878de103b4a0eb38c"
 		&& FPMM.creator != "0x32981c1eeef4f5af3470069836bf95a0f8ac0508"){
 			individualTotalPoolTokeninUSDValue = Math.ceil(FPMM.scaledLiquidityMeasure * tokenToETHValue[FPMM.collateralToken] * ETHPrice);
-			let pnkAmount = Math.ceil(monthlyPNKReward * individualTotalPoolTokeninUSDValue / totalPoolLiquidity);
-			let PNKUSDAmount = Math.ceil(monthlyPNKReward * tokenToETHValue[pnkContractAddress] * ETHPrice * individualTotalPoolTokeninUSDValue / totalPoolLiquidity);
+			totalPoolLiquidity += individualTotalPoolTokeninUSDValue;
 
 			// Here we are adding the FPMM List with their respective USD Value
-			addFPMMList(FPMM.title, FPMM.id, pnkAmount, PNKUSDAmount, individualTotalPoolTokeninUSDValue);
+			addFPMMList(FPMM.title, FPMM.id, individualTotalPoolTokeninUSDValue);
 		}
-		document.getElementById("omen-market-usd").innerHTML = Math.ceil(totalPoolLiquidity);
+		totalPoolLiquidity = Math.ceil(totalPoolLiquidity);
+		document.getElementById("omen-market-usd").innerHTML = totalPoolLiquidity;
 	});
 })
 .then(function() {
     document.getElementById('status').innerHTML = "Done!";
     document.getElementById('status').innerHTML = "";
-    document.getElementById("calculate-amount").value = 100;
-    calculate();
 });

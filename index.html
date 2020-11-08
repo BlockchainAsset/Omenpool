@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omen Pool Token APR</title>
-    <meta name="description" content="Find the PNK Reward you can get from providing Liquidity Pool to Omen">
+    <title>Omen Liquidity Pool</title>
+    <meta name="description" content="Omen Liquidity Pool">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -12,7 +12,7 @@
     <div class="container text-center" id="theme-bg">
         <button id="theme" onclick="changeTheme()">&#9790;</button>
         <div class="header-image">
-            <img src="img/PNKFarmingOnOmenHeader.png" alt="PNK Farming On Omen" class="rounded img-fluid">
+            <img src="img/OmenHeader.png" alt="Omen Prediction Market" class="rounded img-fluid" width="500" height="500">
         </div>
         <div class="market-details">
             <h1>Omen Pool Liquidity</h1>
@@ -26,30 +26,12 @@
             Finding all the Fixed Product Market Makers...
         </div>
         <div>
-            <div class="apr-details">
-                <h3>Calculate APR</h3>
-                <div class="apr-details-form">
-                    <label for="amount">Amount in USD: </label><br>
-                    <input class="form-control" type="number" name="amount" id="calculate-amount" placeholder="Enter the amount" oninput="calculate()">
-                </div>
-            </div>
-            <div id="calculate-apr">
-                The monthly reward is <div id="pnk">?</div> <b>PNK</b><br>
-                which is equivalent to <b>$</b><div id="dollar">??</div><br>
-                i.e. An APR of <div id="apr">???</div> %<br>
-            </div>
-            <div class="reward-rules">
-                <p>For more info on rewards, <a href="https://blog.kleros.io/make-pnk-with-omen-conditional-markets-a-guide/" target="_blank">read this post</a>.</p>
-                <small>Note that rewards are given to market creators only, to farm PNK you must be creative and create a new market.</small><br>
-                <small>Creating markets with unequal probability will result in smaller liquidity due to part of the outcome tokens not being put into the curve. Please consider that while creating markets.</small>
-            </div>
-            <hr>
             <div id="market-list"></div>
         </div>
+        <hr>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 <script src="js/check.js"></script>
-<script src="js/calculate.js"></script>
 <script src="js/theme.js"></script>
 </body>
 </html>
